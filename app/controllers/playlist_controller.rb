@@ -12,7 +12,8 @@ class PlaylistController < ApplicationController
   end
 
   def generate
-    binding.pry
+    @artists = params[:artists]
+    Spotify.create_playlist(@artists)
   end
 
 end

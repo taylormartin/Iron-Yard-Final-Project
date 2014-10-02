@@ -5,5 +5,5 @@
   %input{type: "submit", value: "Submit"}
   %br
   - for i in 0..(@artists.count-1)
-    %input{name: "artist[]", type: "checkbox", value: "#{@artists[i]}"} #{@artists[i]}
+    %input{name: "artists[]", type: "checkbox", value: "#{@artists[i]}"} #{@artists[i]}
     %br
