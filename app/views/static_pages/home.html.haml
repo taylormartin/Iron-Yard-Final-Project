@@ -1,4 +1,36 @@
-%h3 Artists
+%h3 Click below to select artists
 
--@artists.each do |artist|
-  %p= artist
+%form{:action => "html_form_send.php", :method => "post", :name => "htmlform"}
+  %table{:width => "450px"}
+  %tr
+    %td{:valign => "top"}
+      %label{:for => "first_name"} First Name *
+    %td{:valign => "top"}
+      %input{:maxlength => "50", :name => "first_name", :size => "30", :type => "text"}
+    %tr
+      %td{:valign => "top"}>
+      ">
+      %label{:for => "last_name"} Last Name *
+    %td{:valign => "top"}
+      %input{:maxlength => "50", :name => "last_name", :size => "30", :type => "text"}
+    %tr
+      %td{:valign => "top"}
+        %label{:for => "email"} Email Address *
+      %td{:valign => "top"}
+        %input{:maxlength => "80", :name => "email", :size => "30", :type => "text"}
+      %tr
+        %td{:valign => "top"}
+          %label{:for => "telephone"} Telephone Number
+        %td{:valign => "top"}
+          %input{:maxlength => "30", :name => "telephone", :size => "30", :type => "text"}
+        %tr
+          %td{:valign => "top"}
+            %label{:for => "comments"} Comments *
+          %td{:valign => "top"}
+            %textarea{:cols => "25", :maxlength => "1000", :name => "comments", :rows => "6"}
+        %tr
+          %td{:colspan => "2", :style => "text-align:center"}
+            %input{:type => "submit", :value => "Submit"}
+              (
+              %a{:href => "http://www.freecontactform.com/html_form.php"} HTML Form
+              )

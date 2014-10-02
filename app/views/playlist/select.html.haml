@@ -1,0 +1,9 @@
+%h3 Artists
+
+%form{action: playlist_generate_path, method: "post", name: "artists"}
+  = hidden_field_tag :authenticity_token, form_authenticity_token
+  %input{type: "submit", value: "Submit"}
+  %br
+  - for i in 0..(@artists.count-1)
+    %input{name: "artist[]", type: "checkbox", value: "#{@artists[i]}"} #{@artists[i]}
+    %br
