@@ -15,7 +15,9 @@ private
 
   def find_or_create_identity
     Identity.where(provider: @auth.provider, uid: @auth.uid).
-      create_with(auth_data: @auth).
+      create_with(auth_data: @auth, token: @auth.credentials['token'],
+        refresh_token: @auth.credentials['refresh_token'],
+        token_expiration: @auth.credentials['expires_at']).
       first_or_create!
   end
 

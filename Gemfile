@@ -23,8 +23,8 @@ group :production do
 end
 
 group :development do
-  # gem 'better_errors'
-  # gem 'binding_of_caller'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'pry-rails'
   gem 'quiet_assets'
