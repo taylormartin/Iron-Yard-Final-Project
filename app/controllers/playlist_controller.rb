@@ -13,11 +13,13 @@ class PlaylistController < ApplicationController
   end
 
   def generate
-    artists = params[:artists]
-    id = current_user.identity.auth_data['uid']
     current_user.refresh_token_if_expired
-    token = current_user.identity.auth_data['credentials']['token']
-    Spotify.create_playlist(artists, token, id)
+
+    artists = params[:artists]
+    username = current_user.identity.auth_data['uid']
+    token = current_user.identity.token
+
+    Spotify.create_playlist(artists, token, username)
   end
 
 end
