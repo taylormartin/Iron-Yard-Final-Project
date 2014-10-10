@@ -1,4 +1,5 @@
 module ApplicationHelper
+  
   def flash_class name
     case name.to_sym
     when :notice

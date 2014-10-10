@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 
   def refresh_token_if_expired
     #TODO: need to account for possible new refresh token too
-    #TODO: is it not possible to add time to a date if they are both integers
     token_expiration = Time.at(self.identity.token_expiration)
     if token_expiration < Time.now
       refresh_token = self.identity.refresh_token
