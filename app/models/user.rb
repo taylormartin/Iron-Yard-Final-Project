@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   has_one :identity, dependent: :destroy
 
   def refresh_token_if_expired
-    #TODO: need to account for possible new refresh token too
     token_expiration = Time.at(self.identity.token_expiration)
     if token_expiration < Time.now
       refresh_token = self.identity.refresh_token

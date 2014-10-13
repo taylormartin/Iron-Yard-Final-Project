@@ -1,11 +1,51 @@
-%h3 Artists
+%h3 Select the artists you want in your playlist and click the submit button
 
 %form{action: playlist_generate_path, method: "post", name: "artists"}
   = hidden_field_tag :authenticity_token, form_authenticity_token
   %input{type: "submit", value: "Submit"}
   %br
+  %br
   - for i in 0..(@artists.count-1)
-    %input{name: "artists[]", type: "checkbox", value: "#{@artists[i]}"} #{@artists[i]}
-    %br
+    .well
+      %input{name: "artists[]", type: "checkbox", value: "#{@artists[i][:artist]}"}= "  #{@artists[i][:artist]} @ #{@artists[i][:venue]}"
+      =link_to "(Artist Songkick Page)", @artists[i][:uri], :target => "_blank"
+      %br
+      %br
+      %iframe{:allowtransparency => "true", :frameborder => "0", :height => "80", :width => "300", :src => "https://embed.spotify.com/?uri=spotify:track:#{@artists[i][:top_track_id]}" }
 
 -#TODO: add links to each bands website or spotify profile
+-#TODO: could show a table that has the venue, date, and songkick profile link for each artist
+-#TODO: location search API: http://api.songkick.com/api/3.0/search/locations.json?query={location}&apikey={api-key}
+-#
+-# :javascript
+-#   $(function(){
+-#     //function for getting top track id from spotify
+-#     function google_for_book(){
+-#       $.getJSON('https://www.googleapis.com/books/v1/volumes?q=isbn:' + $('.isbn').val(),
+-#          function(response){
+-#            if (response.totalItems === 0) {
+-#              alert("No results found");
+-#              }
+-#            else {
+-#              var book = response.items[0].volumeInfo;
+-#              var authors_array = [];
+-#              for (i = 0, length = book.authors.length; i < length; i ++){
+-#                authors_array.push(book.authors[i]);
+-#              }
+-#              var authors = authors_array.join(", ");
+-#              var description = book.description;
+-#              var title = book.title;
+-#              var image_url = book.imageLinks.thumbnail;
+-#              var isbn = book.industryIdentifiers[0].identifier;
+-#              $('.pic').attr('src', image_url);
+-#              $('.title').text(title);
+-#              $('.author').text(authors);
+-#              $('.description').text(description);
+-#              $('.book-saver').slideDown('slow');
+-#              $('.show-book').hide();
+-#              book_save(title, authors, description, image_url, isbn);
+-#              }
+-#           })
+-#     };
+-#
+-#   });

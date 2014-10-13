@@ -14,6 +14,12 @@ class Spotify
     return playlist_url
   end
 
+  def self.top_track artist
+    artist = artist.gsub(/[' ']/, '+')
+    id = search_id(artist)
+    track_id = get_top_track(id)
+  end
+
 private
 
   def self.new_playlist(token, username)
@@ -25,7 +31,7 @@ private
     return playlist["id"], playlist['external_urls']['spotify']
   end
 
-  def self.track_ids(artists)
+  def self.track_ids artists
     tracks_array = []
     track_list = []
     artists.each do |artist|
@@ -49,13 +55,19 @@ private
   end
 
   def self.top_five_tracks id
-    #this is a place where I could user the map function
+    #this is a place where I could use the map function
     top_five = []
     response = get "/artists/#{id}/top-tracks?country=US"
     response['tracks'].first(5).each do |track|
       top_five << track['id']
     end
     top_five
+  end
+
+  def self.get_top_track id
+    response = get "/artists/#{id}/top-tracks?country=US"
+    response.extend Hashie::Extensions::DeepFetch
+    track_id = response.deep_fetch('tracks', 0, 'id') { |key| nil }
   end
 
 end

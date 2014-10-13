@@ -2,25 +2,21 @@
 
 %form{:action => "playlist/select", :method => "post", :name => "search_form"}
   = hidden_field_tag :authenticity_token, form_authenticity_token
-  %table
-    %tr
-      %td
-        %label{:for => "city"} City
-      %td
-        %input{:name => "city", :type => "text", :value => 'Atlanta' }
-    %tr
-      %td
-        %label{:for => "start_date"} Start Date
-      %td
-        %input{:name => "start_date", :type => "date"}
-    %tr
-      %td
-        %label{:for => "end_date"} End Date
-      %td
-        %input{:name => "end_date", :type => "date"}
-    %tr
-      %td
-        %input{:type => "submit", :value => "Submit"}
+  %label City
+  %select{:name => "city"}
+    -@cities.each do |city|
+      %option{:value => city.metro_area_id } #{city.name}
+  %br
+  %br
+  %label{:for => "start_date"} Start Date
+  %input{:name => "start_date", :type => "date"}
+  %br
+  %br
+  %label{:for => "end_date"} End Date
+  %input{:name => "end_date", :type => "date"}
+  %br
+  %br
+  %input{:type => "submit", :value => "Submit"}
 
 -#TODO: need to add more cities to the drop down menu
 -#TODO: add peoples spotify pictures to the application

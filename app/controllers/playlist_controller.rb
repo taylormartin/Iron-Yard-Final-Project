@@ -1,8 +1,7 @@
 class PlaylistController < ApplicationController
 
   def home
-
-
+    @cities = City.all
   end
 
   def select
@@ -13,7 +12,7 @@ class PlaylistController < ApplicationController
     elsif params[:end_date] == ""
       redirect_to playlist_path, :flash => { :alert => "Please select an end date" }
     else
-      metro_area_id = City.find_by_name(params[:city]).metro_area_id
+      metro_area_id = params[:city]
       start_date = params[:start_date]
       end_date = params[:end_date]
       @artists = Songkick.get_events(metro_area_id, start_date, end_date)
