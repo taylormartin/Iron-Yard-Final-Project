@@ -14,12 +14,6 @@ class Spotify
     return playlist_url
   end
 
-  def self.top_track artist
-    artist = artist.gsub(/[' ']/, '+')
-    id = search_id(artist)
-    track_id = get_top_track(id)
-  end
-
 private
 
   def self.new_playlist(token, username)
@@ -62,12 +56,6 @@ private
       top_five << track['id']
     end
     top_five
-  end
-
-  def self.get_top_track id
-    response = get "/artists/#{id}/top-tracks?country=US"
-    response.extend Hashie::Extensions::DeepFetch
-    track_id = response.deep_fetch('tracks', 0, 'id') { |key| nil }
   end
 
 end

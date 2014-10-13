@@ -10,9 +10,8 @@ class Songkick
       artist = event.deep_fetch("performance", 0, "artist", "displayName") { |key| nil }
       uri = event.deep_fetch("performance", 0, "artist", "uri") { |key| nil }
       venue = event.deep_fetch("venue", "displayName") { |key| nil }
-      top_track_id = Spotify.top_track(artist)
-      unless artist.nil? || top_track_id.nil?
-        artist_hash = {artist: artist, venue: venue, uri: uri, top_track_id: top_track_id}
+      unless artist.nil?
+        artist_hash = {artist: artist, venue: venue, uri: uri}
         @artists << artist_hash
       end
     end
