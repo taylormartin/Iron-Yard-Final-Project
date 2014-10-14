@@ -1,3 +1,10 @@
 == README
 
-Spotify app...more info to come
+This web app is built with Ruby on Rails.
+It also has a smidge of jQuery and javascript in there.
+
+It allows users to lookup artists coming to play shows in a city within a timeframe
+that the users specifies. The user can then listen to samples of those artists,
+select as many as they want and hit generate to have a playlist created and sent
+to their Spotify account. The playlist will contain tracks from those artists
+they selected.
