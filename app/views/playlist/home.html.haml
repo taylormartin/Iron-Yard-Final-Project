@@ -1,24 +1,17 @@
-%h3 Click below to select artists
-
 %form{:action => "playlist/select", :method => "post", :name => "search_form"}
   = hidden_field_tag :authenticity_token, form_authenticity_token
-  %label City
+  %label City:
   %select{:name => "city"}
     -@cities.each do |city|
       %option{:value => city.metro_area_id } #{city.name}
   %br
   %br
-  %label{:for => "start_date"} Start Date
+  %label{:for => "start_date"} Start Date:
   %input{:name => "start_date", :type => "date"}
   %br
   %br
-  %label{:for => "end_date"} End Date
+  %label{:for => "end_date"} End Date:
   %input{:name => "end_date", :type => "date"}
   %br
   %br
   %input{:type => "submit", :value => "Submit"}
-
--#TODO: need to add more cities to the drop down menu
--#TODO: add peoples spotify pictures to the application
--#TODO: need to deal with multiple pages of events
--#TODO: artists that aren't in the spotify library shouldn't show up

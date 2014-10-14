@@ -1,51 +1,46 @@
-%h3 Select the artists you want in your playlist and click the submit button
-
 %form{action: playlist_generate_path, method: "post", name: "artists"}
   = hidden_field_tag :authenticity_token, form_authenticity_token
-  %input{type: "submit", value: "Submit"}
+  %label{:for => "playlist_name"} Playlist Name:
+  %input{:name => "playlist_name", :type => "text", maxlength: 20}
+  %br
+  %br
+  %input{type: "submit", value: "Generate Playlist",style: "height:50px; width:1140px"}
   %br
   %br
   - for i in 0..(@artists.count-1)
-    .well
-      %input{name: "artists[]", type: "checkbox", value: "#{@artists[i][:artist]}"}= "  #{@artists[i][:artist]} @ #{@artists[i][:venue]}"
-      =link_to "(Artist Songkick Page)", @artists[i][:uri], :target => "_blank"
-      %br
-      %br
-      %iframe{:allowtransparency => "true", :frameborder => "0", :height => "80", :width => "300", :src => "https://embed.spotify.com/?uri=spotify:track:#{@artists[i][:top_track_id]}" }
+    .well.well-sm
+      %input{name: "artists[]", type: "checkbox", value: "#{@artists[i][:artist]}"}
+        %span #{@artists[i][:artist]}
+        %span @ #{@artists[i][:venue]},
+        %span #{@artists[i][:date]}
+        %br
+        %br
+      %button{type: 'button'}=link_to 'Songkick', @artists[i][:uri], target: "_blank"
+      %button.artist{type: 'button', value: @artists[i][:artist]} Listen
 
--#TODO: add links to each bands website or spotify profile
--#TODO: could show a table that has the venue, date, and songkick profile link for each artist
--#TODO: location search API: http://api.songkick.com/api/3.0/search/locations.json?query={location}&apikey={api-key}
--#
--# :javascript
--#   $(function(){
--#     //function for getting top track id from spotify
--#     function google_for_book(){
--#       $.getJSON('https://www.googleapis.com/books/v1/volumes?q=isbn:' + $('.isbn').val(),
--#          function(response){
--#            if (response.totalItems === 0) {
--#              alert("No results found");
--#              }
--#            else {
--#              var book = response.items[0].volumeInfo;
--#              var authors_array = [];
--#              for (i = 0, length = book.authors.length; i < length; i ++){
--#                authors_array.push(book.authors[i]);
--#              }
--#              var authors = authors_array.join(", ");
--#              var description = book.description;
--#              var title = book.title;
--#              var image_url = book.imageLinks.thumbnail;
--#              var isbn = book.industryIdentifiers[0].identifier;
--#              $('.pic').attr('src', image_url);
--#              $('.title').text(title);
--#              $('.author').text(authors);
--#              $('.description').text(description);
--#              $('.book-saver').slideDown('slow');
--#              $('.show-book').hide();
--#              book_save(title, authors, description, image_url, isbn);
--#              }
--#           })
--#     };
--#
--#   });
+:javascript
+  $(function(){
+
+    $('.artist').click(
+      function(){
+        var clicked = $(this);
+        var string = clicked.val();
+        var artist = string.replace(" ", "+");
+        $.getJSON("https://api.spotify.com/v1/search?q=" + artist + "&type=artist",
+        function(response){
+          if (response.artists.total === 0) {
+            alert("No results found");
+          }
+          else {
+            var artist_id = response.artists.items[0].id;
+            $.getJSON("https://api.spotify.com/v1/artists/" + artist_id + "/top-tracks?country=US",
+            function(response){
+              var song_id = response.tracks[0].id;
+              clicked.hide();
+              clicked.parent().append('<br><br><iframe src="https://embed.spotify.com/?uri=spotify:track:' + song_id + '" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>');
+            })
+          }
+        })
+      });
+
+    });

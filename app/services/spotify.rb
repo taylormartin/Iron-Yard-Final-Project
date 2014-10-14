@@ -3,8 +3,8 @@ class Spotify
   base_uri 'https://api.spotify.com/v1'
   logger ::Logger.new('httparty.log'), :debug, :curl
 
-  def self.create_playlist(artists, token, username)
-    playlist_id, playlist_url = new_playlist(token, username)
+  def self.create_playlist(artists, token, username, playlist_name)
+    playlist_id, playlist_url = new_playlist(token, username, playlist_name)
     tracks_array = track_ids(artists)
     add_tracks = post(
       "/users/#{username}/playlists/#{playlist_id}/tracks",
@@ -14,19 +14,13 @@ class Spotify
     return playlist_url
   end
 
-  def self.top_track artist
-    artist = artist.gsub(/[' ']/, '+')
-    id = search_id(artist)
-    track_id = get_top_track(id)
-  end
-
 private
 
-  def self.new_playlist(token, username)
+  def self.new_playlist(token, username, playlist_name)
     playlist = post(
         "/users/#{username}/playlists",
         :headers => {'Authorization' => "Bearer #{token}", "Content-Type" => "application/json"},
-        :body => {:name => "New Playlist", :public => "false"}.to_json
+        :body => {:name => "#{playlist_name}", :public => "false"}.to_json
       )
     return playlist["id"], playlist['external_urls']['spotify']
   end
@@ -62,12 +56,6 @@ private
       top_five << track['id']
     end
     top_five
-  end
-
-  def self.get_top_track id
-    response = get "/artists/#{id}/top-tracks?country=US"
-    response.extend Hashie::Extensions::DeepFetch
-    track_id = response.deep_fetch('tracks', 0, 'id') { |key| nil }
   end
 
 end

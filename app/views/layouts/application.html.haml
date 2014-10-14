@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Music News
+    %title
     = stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
     = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
     = stylesheet_link_tag 'application', media: 'all'
@@ -16,7 +16,7 @@
     %nav.navbar.navbar-default
       .container
         .navbar-header
-          %div{class: "navbar-brand"}The Playlist Machine - Powered by Spofify & Songkick
+          %div{class: "navbar-brand"}= link_to "The Playlist Machine - Powered by Spotify & Songkick", root_path
 
         %ul.nav.navbar-nav
           - if current_user
