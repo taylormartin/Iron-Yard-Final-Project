@@ -1,24 +1,22 @@
-%h3 Select the artists you want in your playlist and click the submit button
-
 %form{action: playlist_generate_path, method: "post", name: "artists"}
   = hidden_field_tag :authenticity_token, form_authenticity_token
-  %input{type: "submit", value: "Submit"}
+  %label{:for => "playlist_name"} Playlist Name:
+  %input{:name => "playlist_name", :type => "text", maxlength: 20}
+  %br
+  %br
+  %input{type: "submit", value: "Generate Playlist",style: "height:50px; width:1140px"}
   %br
   %br
   - for i in 0..(@artists.count-1)
     .well.well-sm
       %input{name: "artists[]", type: "checkbox", value: "#{@artists[i][:artist]}"}
-        %span.artist #{@artists[i][:artist]}
-        %span.venue @ #{@artists[i][:venue]}
+        %span #{@artists[i][:artist]}
+        %span @ #{@artists[i][:venue]},
+        %span #{@artists[i][:date]}
         %br
         %br
       %button{type: 'button'}=link_to 'Songkick', @artists[i][:uri], target: "_blank"
       %button.artist{type: 'button', value: @artists[i][:artist]} Listen
-
-
--#TODO: add links to each bands website or spotify profile
--#TODO: could show a table that has the venue, date, and songkick profile link for each artist
--#TODO: location search API: http://api.songkick.com/api/3.0/search/locations.json?query={location}&apikey={api-key}
 
 :javascript
   $(function(){
