@@ -1,7 +1,6 @@
 class Spotify
   include HTTParty
   base_uri 'https://api.spotify.com/v1'
-  logger ::Logger.new('httparty.log'), :debug, :curl
 
   def self.create_playlist(artists, token, username, playlist_name)
     playlist_id, playlist_url = new_playlist(token, username, playlist_name)
