@@ -1,17 +1,21 @@
-%form{:action => "playlist/select", :method => "post", :name => "search_form"}
-  = hidden_field_tag :authenticity_token, form_authenticity_token
-  %label City:
-  %select{:name => "city"}
-    -@cities.each do |city|
-      %option{:value => city.metro_area_id } #{city.name}
-  %br
-  %br
-  %label{:for => "start_date"} Start Date:
-  %input{:name => "start_date", :type => "date"}
-  %br
-  %br
-  %label{:for => "end_date"} End Date:
-  %input{:name => "end_date", :type => "date"}
-  %br
-  %br
-  %input{:type => "submit", :value => "Submit"}
+%div.row
+  %div.col-md-4
+  %div.col-md-4
+    %form{:action => "playlist/select", :method => "post", :name => "search_form"}
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+      %label City
+      %select.form-control{:name => "city"}
+        -@cities.each do |city|
+          %option{:value => city.metro_area_id } #{city.name}
+      %br
+      %br
+      %label{:for => "start_date"} Start Date
+      %input.form-control{:name => "start_date", :type => "date"}
+      %br
+      %br
+      %label{:for => "end_date"} End Date
+      %input.form-control{:name => "end_date", :type => "date"}
+      %br
+      %br
+      %input.btn.btn-block.btn-success{:type => "submit", :value => "Submit"}
+  %div.col-md-4

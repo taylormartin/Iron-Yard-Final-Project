@@ -1,22 +1,34 @@
 %form{action: playlist_generate_path, method: "post", name: "artists"}
   = hidden_field_tag :authenticity_token, form_authenticity_token
-  %label{:for => "playlist_name"} Playlist Name:
-  %input{:name => "playlist_name", :type => "text", maxlength: 20}
+  %input.btn.btn-success{type: "submit", value: "Generate Playlist", style: "height:50px; width:1140px"}
   %br
   %br
-  %input{type: "submit", value: "Generate Playlist",style: "height:50px; width:1140px"}
+  %input.form-control{:name => "playlist_name", :type => "text", maxlength: 20, placeholder: "Name Your Playlist"}
   %br
   %br
-  - for i in 0..(@artists.count-1)
-    .well.well-sm
-      %input{name: "artists[]", type: "checkbox", value: "#{@artists[i][:artist]}"}
-        %span #{@artists[i][:artist]}
-        %span @ #{@artists[i][:venue]},
-        %span #{@artists[i][:date]}
-        %br
-        %br
-      %button{type: 'button'}=link_to 'Songkick', @artists[i][:uri], target: "_blank"
-      %button.artist{type: 'button', value: @artists[i][:artist]} Listen
+  .row
+    .col-md-6
+      - for i in 0..(@artist_array[0].count-1)
+        .well.well-sm
+          %input{name: "artists[]", type: "checkbox", value: "#{@artist_array[0][i][:artist]}"}
+            %font{size: 3, face: "arial black"} #{@artist_array[0][i][:artist]}
+            %font{size: 3, face: "arial black"} @ #{@artist_array[0][i][:venue]},
+            %font{size: 3, face: "arial black"} #{@artist_array[0][i][:date]}
+            %br
+            %br
+          %a.btn.btn-primary.btn-sm{:href => "#{@artist_array[0][i][:uri]}", :role => "button", target: "_blank"} Songkick
+          %button.btn.btn-success.btn-sm.artist{type: 'button', value: @artist_array[0][i][:artist]} Listen
+    .col-md-6
+      - for i in 0..(@artist_array[1].count-1)
+        .well.well-sm
+          %input{name: "artists[]", type: "checkbox", value: "#{@artist_array[1][i][:artist]}"}
+            %font{size: 3, face: "arial black"} #{@artist_array[1][i][:artist]}
+            %font{size: 3, face: "arial black"} @ #{@artist_array[1][i][:venue]},
+            %font{size: 3, face: "arial black"} #{@artist_array[1][i][:date]}
+            %br
+            %br
+          %a.btn.btn-primary.btn-sm{:href => "#{@artist_array[1][i][:uri]}", :role => "button", target: "_blank"} Songkick
+          %button.btn.btn-success.btn-sm.artist{type: 'button', value: @artist_array[1][i][:artist]} Listen
 
 :javascript
   $(function(){

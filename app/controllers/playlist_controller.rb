@@ -17,7 +17,8 @@ class PlaylistController < ApplicationController
       metro_area_id = params[:city]
       start_date = params[:start_date]
       end_date = params[:end_date]
-      @artists = Songkick.get_events(metro_area_id, start_date, end_date)
+      artists = Songkick.get_events(metro_area_id, start_date, end_date)
+      @artist_array = artists.in_groups(2, false)
     end
   end
 
