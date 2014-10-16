@@ -1,4 +1,4 @@
 - if devise_mapping.omniauthable?
   - resource_class.omniauth_providers.each do |provider|
-    %h4= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+    %a.btn.btn-primary.btn-lg{href: omniauth_authorize_path(resource_name, provider), role: "button"} Sign In With Spotify
     %br/
