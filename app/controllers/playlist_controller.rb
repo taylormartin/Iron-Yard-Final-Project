@@ -24,16 +24,20 @@ class PlaylistController < ApplicationController
 
 
   def generate
-    if params[:playlist_name] == ""
-      playlist_name = "nameless playlist"
+    if params[:artists] == nil
+      redirect_to playlist_path, :flash => { :alert => "You didn't select any artists for your playlist"}
     else
-      playlist_name = params[:playlist_name]
+      if params[:playlist_name] == ""
+        playlist_name = "nameless playlist"
+      else
+        playlist_name = params[:playlist_name]
+      end
+      current_user.refresh_token_if_expired
+      artists = params[:artists]
+      username = current_user.identity.auth_data['uid']
+      token = current_user.identity.token
+      @playlist_url = Spotify.create_playlist(artists, token, username, playlist_name)
     end
-    current_user.refresh_token_if_expired
-    artists = params[:artists]
-    username = current_user.identity.auth_data['uid']
-    token = current_user.identity.token
-    @playlist_url = Spotify.create_playlist(artists, token, username, playlist_name)
   end
 
 end
