@@ -11,7 +11,7 @@ This is exactly what I have built here.
 The Specifics
 --------------
 
-This web app is built with Ruby on Rails, jQuery, HAML, and JavaScript.
+This web app is built with Ruby on Rails, jQuery, HAML, JavaScript, the Songkick API, and the Spotify API.
 
 It is live at https://concertplaylist.herokuapp.com (it may take 10 - 15 seconds to load
 since I am hosting it for free on Heroku right now)
