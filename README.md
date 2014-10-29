@@ -18,7 +18,7 @@ since I am hosting it for free on Heroku right now)
 
 Application Flow
 
-1. First, login with your Spotify
+1. First, login with your Spotify account
 2. Select a city and a date timeframe
 3. You will then be taken to a page with all the artists playing shows in that city's metro area in the specified timeframe
 4. You can click Songkick to go the artist's Songkick page or click "listen" to hear that artist's top track on Spotify
